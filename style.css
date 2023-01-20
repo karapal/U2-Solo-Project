@@ -1,7 +1,7 @@
 #body{
     background-color:#141414 ;
 }
-.card:hover {
+.movie-img:hover {
   transform: scale(1.1);
 }
 #footer{
@@ -18,10 +18,7 @@
     display: flex;
     justify-content: center;
   }
-  .card img {
-    max-width: 100%;
-    max-height: 100%;
-  }
+  
   #dropdownMenuButton2 {
     margin-left: 2em;
   }

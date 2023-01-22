@@ -1,26 +1,30 @@
 let url = "https://striveschool-api.herokuapp.com/api/movies";
 
-window.onload = () => {
-    getData();
-  };
-  const getData = async () => {
-    try {
-      let res = await fetch(url, {
-        headers: {
-          Authorization:
-          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NhYWZmYTE3ZWE3ODAwMTUyZWMwYzMiLCJpYXQiOjE2NzQyMjc3MDcsImV4cCI6MTY3NTQzNzMwN30.BT3pchvAXv7-moNSjFqztIQImtsvcCsHC_48-tL-Pd4"
-        },
-    });
-    if (res.ok) {
-        let data = await res.json();
-        console.log(data);
-        showMovies(data);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+let options = {
+  headers: new Headers({
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2NhYWZmYTE3ZWE3ODAwMTUyZWMwYzMiLCJpYXQiOjE2NzQyMjc3MDcsImV4cCI6MTY3NTQzNzMwN30.BT3pchvAXv7-moNSjFqztIQImtsvcCsHC_48-tL-Pd4"
+  })
+};
+window.onload = async () => {
+  await getMovies()
+}
 
+const getMovies = async () => {
+  try {
+    let response = await fetch(url, options)
+    let genres = await response.json()
+    genres.forEach(async (genre) => {
+      let res = await fetch(url + "/" + genre, options)
+      let movies = await res.json();
+      showMovies(movies)
+    });
+  }
+  catch (error) {
+    console.log(error)
+  }
+};
+
+ 
 
   const showMovies = (movies) => {
     let row = document.getElementById("row");
